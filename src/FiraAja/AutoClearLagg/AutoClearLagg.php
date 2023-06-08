@@ -79,8 +79,8 @@ class AutoClearLagg extends PluginBase{
         }
         $messages = $config["messages"] ?? [];
         $this->messages = [
-            self::LANG_TIME_LEFT => $messages[self::LANG_TIME_LEFT] ?? "§cEntities will clear in {SECONDS} seconds",
-            self::LANG_ENTITIES_CLEARED => $messages[self::LANG_ENTITIES_CLEARED] ?? "§cCleared a total of {COUNT} entities"
+            self::LANG_TIME_LEFT => $messages[self::LANG_TIME_LEFT] ?? "§eEntities will clear in §a{SECONDS} §eseconds",
+            self::LANG_ENTITIES_CLEARED => $messages[self::LANG_ENTITIES_CLEARED] ?? "§eCleared a total of §a{COUNT} §eentities"
         ];
 
         if(!is_array($config["times"] ?? [])){
@@ -112,14 +112,14 @@ class AutoClearLagg extends PluginBase{
                 }
                 if($this->messages[self::LANG_ENTITIES_CLEARED] !== ""){
                     foreach($this->getServer()->getOnlinePlayers() as $player){
-                    	$player->sendMessage(str_replace("{COUNT}", (string) $entitiesCleared, $this->messages[self::LANG_ENTITIES_CLEARED]));
+                    	$player->sendTip(str_replace("{COUNT}", (string) $entitiesCleared, $this->messages[self::LANG_ENTITIES_CLEARED]));
                     }
                 }
 
                 $this->seconds = $this->interval;
             }else if(in_array($this->seconds, $this->broadcastTimes) && $this->messages[self::LANG_TIME_LEFT] !== ""){
                 foreach($this->getServer()->getOnlinePlayers() as $player){
-                	$player->sendMessage(str_replace("{SECONDS}", (string) $this->seconds, $this->messages[self::LANG_TIME_LEFT]));
+                	$player->sendTip(str_replace("{SECONDS}", (string) $this->seconds, $this->messages[self::LANG_TIME_LEFT]));
                 }
             }
         }), 20);
