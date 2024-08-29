@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace FiraAja\AutoClearLagg;
 
+use brokiem\snpc\entity\BaseNPC;
 use pocketmine\entity\Human;
 use pocketmine\entity\object\ExperienceOrb;
 use pocketmine\entity\object\ItemEntity;
@@ -99,7 +100,7 @@ class AutoClearLagg extends PluginBase{
                         if($this->clearItems && $entity instanceof ItemEntity){
                             $entity->flagForDespawn();
                             ++$entitiesCleared;
-                        }else if($this->clearMobs && !$entity instanceof Human){
+                        }else if($this->clearMobs && !$entity instanceof Human && !$entity instanceof BaseNPC){
                             $entity->flagForDespawn();
                             ++$entitiesCleared;
                         }else if($this->clearXpOrbs && $entity instanceof ExperienceOrb){
